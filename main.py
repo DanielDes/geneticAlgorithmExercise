@@ -6,15 +6,22 @@ results = []
 population = []
 crossover_rate = 0.8
 mutation_rate = 0.1
+RESULT_FILE_NAME = "resultados.txt"
+RAW_AVERAGE_FILE_NAME = "promedios.txt"
 
 def main():
     print("Say hi")
+    file_stream = open(RESULT_FILE_NAME,"w")
+    average_data_stream = open(RAW_AVERAGE_FILE_NAME,"w")
     parse_data()
     create_initial_population()
     for i in range(0, 20):
         print("-----------------------------")
         print("Generation %d"%i)
-        generation_iteration()
+        average = generation_iteration()
+        file_stream.write("Generation %d \n" % i)
+        file_stream.write("%f\n"%average)
+        average_data_stream.write("%f\n"%average)
         # determine_average_value()
     # iteration_counter = 0
     # has_reached = False
@@ -23,6 +30,7 @@ def main():
     #     generation_iteration()
     #     has_reached = determine_if_reached_desire_value(2)
     #     iteration_counter += 1
+    file_stream.close()
 
 def determine_average_value():
     sumatory = 0
@@ -51,6 +59,7 @@ def generation_iteration():
     tournament()
     time_to_procreate()
     mutation()
+    return average
 
 def calculate_random_number_in_binay():
     random_number = randint(0,10)
@@ -62,7 +71,7 @@ def tournament():
     for iteration in range(0,len(population)):
         contender_one = population[randint(0,49)]
         contender_two = population[randint(0,49)]
-        winner = contender_one if contender_one.result > contender_two else contender_two
+        winner = contender_one if contender_one.result > contender_two.result else contender_two
         winners.append(winner)
         if winner.result > highest_score:
             highest_score = winner.result
