@@ -22,14 +22,6 @@ def main():
         file_stream.write("Generation %d \n" % i)
         file_stream.write("%f\n"%average)
         average_data_stream.write("%f\n"%average)
-        # determine_average_value()
-    # iteration_counter = 0
-    # has_reached = False
-    # while not has_reached:
-    #     print("Generation %d" % iteration_counter)
-    #     generation_iteration()
-    #     has_reached = determine_if_reached_desire_value(2)
-    #     iteration_counter += 1
     file_stream.close()
 
 def determine_average_value():
@@ -39,15 +31,7 @@ def determine_average_value():
     result = sumatory / len(population)
     print("Average value of generation ")
     print(result)
-
-def determine_if_reached_desire_value(value):
-    for chromosome in population:
-        if chromosome.result > value:
-            print("Reached value with")
-            print(chromosome.data)
-            print(chromosome.result)
-            return True
-    return False
+    
 def generation_iteration():
     sumatory = 0
     for chromosome in population:
@@ -111,7 +95,7 @@ def time_to_procreate():
         if son.result > first_parent.result:
             population.pop(first_parent_index)
             population.insert(first_parent_index,son)
-            
+
 
 def check_results():
     for individue in population:
