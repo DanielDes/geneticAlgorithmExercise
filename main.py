@@ -105,8 +105,13 @@ def time_to_procreate():
         second_parent_genes.pop(random_point_genes)
         second_parent_genes.insert(random_point_genes, first_parent_genes)
         son = Chromosome(second_parent_genes,fitness_function_procedure)
-        population.pop(first_parent_index)
-        population.insert(first_parent_index,son)
+        # Checamos si el hijo supera al padre en fitness
+
+        son.calculate_value()
+        if son.result > first_parent.result:
+            population.pop(first_parent_index)
+            population.insert(first_parent_index,son)
+            
 
 def check_results():
     for individue in population:
